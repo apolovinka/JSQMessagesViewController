@@ -269,6 +269,11 @@ JSQMessagesKeyboardControllerDelegate>
 
     [self jsq_configureMessagesViewController];
     [self jsq_registerForNotifications:YES];
+    [self jsq_setToolbarBottomLayoutGuideConstant:0.0];
+
+    if (@available(iOS 11.0, *)) {
+        [self.collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -291,6 +296,9 @@ JSQMessagesKeyboardControllerDelegate>
     }
 
     [self jsq_updateKeyboardTriggerPoint];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self jsq_setToolbarBottomLayoutGuideConstant:0.0];
+    });
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -919,7 +927,14 @@ JSQMessagesKeyboardControllerDelegate>
 
 - (void)jsq_setToolbarBottomLayoutGuideConstant:(CGFloat)constant
 {
-    self.toolbarBottomLayoutGuide.constant = constant;
+    CGFloat margin = 0.0;
+    if (@available(iOS 11.0, *)) {
+        if (constant == 0.0) {
+            margin = self.view.safeAreaInsets.bottom;
+        }
+    }
+
+    self.toolbarBottomLayoutGuide.constant = constant+margin;
     [self.view setNeedsUpdateConstraints];
     [self.view layoutIfNeeded];
 

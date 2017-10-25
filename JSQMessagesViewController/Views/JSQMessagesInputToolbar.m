@@ -102,12 +102,6 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
     [self.delegate messagesInputToolbar:self didPressRightBarButton:sender];
 }
 
-- (void)didMoveToWindow {
-    [super didMoveToWindow];
-    if (@available(iOS 11.0, *) && self.window != nil) {
-        [[self bottomAnchor] constraintLessThanOrEqualToSystemSpacingBelowAnchor:self.window.safeAreaLayoutGuide.bottomAnchor multiplier:1.0].active = YES;
-    }
-}
 
 #pragma mark - Input toolbar
 
