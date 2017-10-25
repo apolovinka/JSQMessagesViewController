@@ -269,7 +269,6 @@ JSQMessagesKeyboardControllerDelegate>
 
     [self jsq_configureMessagesViewController];
     [self jsq_registerForNotifications:YES];
-    [self jsq_setToolbarBottomLayoutGuideConstant:0.0];
 
     if (@available(iOS 11.0, *)) {
         [self.collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
