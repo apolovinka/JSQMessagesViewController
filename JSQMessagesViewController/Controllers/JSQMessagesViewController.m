@@ -281,9 +281,7 @@ JSQMessagesKeyboardControllerDelegate>
     NSParameterAssert(self.senderDisplayName != nil);
 
     [super viewWillAppear:animated];
-    if (!self.inputToolbar.contentView.textView.hasText) {
-            self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
-    }
+    self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
     [self.view layoutIfNeeded];
     [self.collectionView.collectionViewLayout invalidateLayout];
 
@@ -926,14 +924,7 @@ JSQMessagesKeyboardControllerDelegate>
 
 - (void)jsq_setToolbarBottomLayoutGuideConstant:(CGFloat)constant
 {
-    CGFloat margin = 0.0;
-    if (@available(iOS 11.0, *)) {
-        if (constant == 0.0) {
-            margin = self.view.safeAreaInsets.bottom;
-        }
-    }
-
-    self.toolbarBottomLayoutGuide.constant = constant+margin;
+    self.toolbarBottomLayoutGuide.constant = constant;
     [self.view setNeedsUpdateConstraints];
     [self.view layoutIfNeeded];
 
